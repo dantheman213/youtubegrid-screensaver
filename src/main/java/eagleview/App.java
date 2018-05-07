@@ -3,17 +3,21 @@ package eagleview;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 public class App extends Application
 {
     @Override
     public void start (Stage primaryStage) throws Exception {
-        primaryStage.setTitle ("JavaFX Test App");
+        primaryStage.setTitle ("Eagle View");
 
-        Label label = new Label ("Hello World!");
-        Scene scene = new Scene (label, 400, 200);
+        WebView webView = new WebView();
+
+        Scene scene = new Scene(webView, 1350, 800);
         primaryStage.setScene (scene);
+
+        webView.getEngine().load("https://youtube.com/");
 
         primaryStage.show ();
     }

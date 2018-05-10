@@ -1,33 +1,106 @@
 package eagleview;
 
 import javafx.application.Application;
+import javafx.beans.InvalidationListener;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.TilePane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.web.WebView;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
+
+import java.io.File;
 
 public class App extends Application
 {
+    private TilePane grid;
+
     @Override
     public void start (Stage primaryStage) throws Exception {
         primaryStage.setTitle ("Eagle View");
 
-        GridPane grid = new GridPane();
+        grid = new TilePane();
+        grid.setHgap(0);
+        grid.setVgap(0);
+        grid.setPrefRows(3);
+        grid.setPrefColumns(3);
+        grid.setPrefTileWidth((1920/3));
+        grid.setPrefTileHeight((1080/3));
+
+        grid.setPrefSize(1920, 1080); // Default width and height
+        grid.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
 
         for(int j = 0; j < 3; j++) {
             for(int k = 0; k < 3; k++) {
-                WebView webView = new WebView();
-                Scene scene = new Scene(webView, 320, 240);
+                MediaPlayer player = new MediaPlayer( new Media(new File("C:\\Users\\Dan\\Desktop\\new.mp4").toURI().toURL().toString()));
+                MediaView mediaView = new MediaView(player);
 
-                webView.getEngine().load("https://www.youtube.com/embed/mHswm4oyKQ4?vq=medium&autoplay=1");
-                grid.add(webView, j, k);
+                grid.getChildren().add(mediaView);
+
+                mediaView.fitWidthProperty().bind(grid.prefTileWidthProperty());
+                mediaView.fitHeightProperty().bind(grid.prefTileHeightProperty());
+
+                mediaView.setPreserveRatio(false);
+
+
+                player.setMute(true);
+                player.play();
             }
         }
 
         Scene sceneMain = new Scene(grid);
-        primaryStage.setScene (sceneMain);
-        primaryStage.show ();
+
+        sceneMain.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
+                //System.out.println("Width: " + newSceneWidth);
+                grid.setPrefTileWidth((newSceneWidth.intValue()/3));
+            }
+        });
+
+        sceneMain.heightProperty().addListener(new ChangeListener<Number>() {
+            @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
+                grid.setPrefTileHeight((newSceneHeight.intValue()/3));
+            }
+        });
+
+        // TBD: REMOVE BEFORE GETTING TO PRODUCTION (ONLY USE IN DEV MODE)
+        sceneMain.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent t) {
+                if(t.getCode()==KeyCode.ESCAPE)
+                {
+                    primaryStage.close();
+                }
+            }
+        });
+
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
+
+        primaryStage.setX(bounds.getMinX());
+        primaryStage.setY(bounds.getMinY());
+        primaryStage.setWidth(bounds.getWidth());
+        primaryStage.setHeight(bounds.getHeight());
+
+        primaryStage.setScene(sceneMain);
+        primaryStage.show();
     }
 
     public static void main( String[] args ) {

@@ -28,6 +28,11 @@ import java.io.File;
 
 public class App extends Application
 {
+    private static boolean isFullscreenMode = false;
+    private static boolean isConfigurationMode = false;
+    private static boolean isDialogSelectorPreviewMode = false;
+    private static String previewWindowHandle = null;
+
     private TilePane grid;
 
     @Override
@@ -79,31 +84,51 @@ public class App extends Application
         });
 
         // TBD: REMOVE BEFORE GETTING TO PRODUCTION (ONLY USE IN DEV MODE)
-        sceneMain.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent t) {
-                if(t.getCode()==KeyCode.ESCAPE)
-                {
-                    primaryStage.close();
+        if(!isFullscreenMode) {
+            sceneMain.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent t) {
+                    if(t.getCode()==KeyCode.ESCAPE)
+                    {
+                        primaryStage.close();
+                    }
                 }
-            }
-        });
+            });
+        }
 
-        primaryStage.initStyle(StageStyle.UNDECORATED);
+        if(isFullscreenMode) {
+            primaryStage.initStyle(StageStyle.UNDECORATED);
 
-        Screen screen = Screen.getPrimary();
-        Rectangle2D bounds = screen.getVisualBounds();
+            Screen screen = Screen.getPrimary();
+            Rectangle2D bounds = screen.getVisualBounds();
 
-        primaryStage.setX(bounds.getMinX());
-        primaryStage.setY(bounds.getMinY());
-        primaryStage.setWidth(bounds.getWidth());
-        primaryStage.setHeight(bounds.getHeight());
+            primaryStage.setX(bounds.getMinX());
+            primaryStage.setY(bounds.getMinY());
+            primaryStage.setWidth(bounds.getWidth());
+            primaryStage.setHeight(bounds.getHeight());
+        }
 
         primaryStage.setScene(sceneMain);
         primaryStage.show();
     }
 
     public static void main( String[] args ) {
+        for(int i = 0; i <  args.length; i++) {
+            String arg = args[i];
+
+            if(arg.equals("/s")) {
+                isFullscreenMode = true;
+            } else if(arg.equals("/c")) {
+                isConfigurationMode = true;
+            } else if(arg.equals("/p")) {
+                isDialogSelectorPreviewMode = true;
+
+                if(args.length >= i+1) {
+                    previewWindowHandle = args[i+1];
+                }
+            }
+        }
+
         Application.launch (args);
     }
 }

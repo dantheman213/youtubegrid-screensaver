@@ -90,8 +90,7 @@ public class App extends Application
 
 
         primaryStage.setOnCloseRequest(e -> {
-            Platform.exit();
-            System.exit(0);
+            exitApplication();
         });
 
         if(isFullscreenMode) {
@@ -101,6 +100,7 @@ public class App extends Application
         } else if(isDialogSelectorPreviewMode) {
             // TBD do something
             // ...
+            exitApplication();
         } else {
             isWindowPreviewMode = true;
             startScreensaver(primaryStage);
@@ -187,7 +187,7 @@ public class App extends Application
                             if(mouseEvent.getX() >= mouseLocation.getX()+20 || mouseEvent.getX() >= mouseLocation.getX()-20
                                     || mouseEvent.getY() >= mouseLocation.getY()+20 || mouseEvent.getY() >= mouseLocation.getY()-20) {
 
-                                primaryStage.close();
+                                exitApplication();
                             }
                         }
                     }
@@ -195,11 +195,16 @@ public class App extends Application
             });
 
             sceneMain.setOnKeyPressed(event -> {
-                primaryStage.close();
+                exitApplication();
             });
         }
 
         primaryStage.setScene(sceneMain);
         primaryStage.show();
+    }
+
+    private void exitApplication() {
+        Platform.exit();
+        System.exit(0);
     }
 }

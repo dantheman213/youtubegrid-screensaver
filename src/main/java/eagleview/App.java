@@ -29,9 +29,11 @@ import javafx.scene.web.WebView;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 
 import java.io.File;
+import java.util.Random;
 
 public class App extends Application
 {
@@ -42,12 +44,14 @@ public class App extends Application
     private static String previewWindowHandle = null;
     private static boolean isFirstRunMouse = true;
     private static Point2D mouseLocation = null;
-
+    private static Random random = null;
     private static String[] arguments = null;
 
     private TilePane grid;
 
     public static void main( String[] args ) throws Exception {
+        random = new Random();
+
         arguments = args;
         Application.launch (args);
     }
@@ -132,15 +136,32 @@ public class App extends Application
         grid.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
 
         for(int j = 0; j < 9; j++) {
-            MediaPlayer player = new MediaPlayer( new Media(new File("C:\\Users\\Dan\\Desktop\\new.mp4").toURI().toURL().toString()));
+            String filePath = String.format("C:\\videos\\%d.mp4", j+1);
+
+            MediaPlayer player = new MediaPlayer( new Media(new File(filePath).toURI().toURL().toString()));
             MediaView mediaView = new MediaView(player);
 
             grid.getChildren().add(mediaView);
 
             mediaView.fitWidthProperty().bind(grid.prefTileWidthProperty());
             mediaView.fitHeightProperty().bind(grid.prefTileHeightProperty());
-
             mediaView.setPreserveRatio(false);
+
+            player.setOnEndOfMedia(new Runnable() {
+                @Override
+                public void run() {
+                    player.seek(Duration.ZERO);
+                }
+            });
+
+            player.setOnReady(new Runnable() {
+                @Override
+                public void run() {
+                    int totalSeconds = (int)player.getTotalDuration().toSeconds();
+                    int currentSecondMark = generateRandomNumber(0, Math.abs(totalSeconds-10));
+                    player.seek(new Duration(currentSecondMark * 1000));
+                }
+            });
 
             player.setMute(true);
             player.play();
@@ -206,5 +227,9 @@ public class App extends Application
     private void exitApplication() {
         Platform.exit();
         System.exit(0);
+    }
+
+    private int generateRandomNumber(int min, int max) {
+        return (random.nextInt(max + 1 - min) + min);
     }
 }

@@ -1,6 +1,7 @@
 package eagleview;
 
 import eagleview.data.Utilities;
+import eagleview.models.SettingsModel;
 import eagleview.views.ConfigurationView;
 import eagleview.views.ScreensaverView;
 import javafx.application.Application;
@@ -8,10 +9,8 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
-public class App extends Application
-{
+public class App extends Application {
     public static boolean isFullscreenMode = false;
-    public static boolean isWindowPreviewMode = false;
     public static boolean isConfigurationMode = false;
     public static boolean isDialogSelectorPreviewMode = false;
     public static String previewWindowHandle = null;
@@ -20,6 +19,8 @@ public class App extends Application
     public static void main( String[] args ) throws Exception {
         arguments = args;
         Utilities util = new Utilities();
+        SettingsModel settings = new SettingsModel();
+
         Application.launch (args);
     }
 

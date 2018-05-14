@@ -10,4 +10,8 @@ public class SettingsModel {
     public static int rowCount;
     public static List<String> videoCollectionUrls; // YouTube URLs
 
+    public SettingsModel() throws Exception {
+        // ...
+
+    }
 }

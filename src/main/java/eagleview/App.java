@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
@@ -12,6 +13,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
@@ -26,6 +28,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.web.WebView;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -47,8 +50,6 @@ public class App extends Application
     private static Random random = null;
     private static String[] arguments = null;
 
-    private TilePane grid;
-
     public static void main( String[] args ) throws Exception {
         random = new Random();
 
@@ -59,15 +60,6 @@ public class App extends Application
     @Override
     public void start (Stage primaryStage) throws Exception {
         if(arguments.length > 0) {
-//            String argFull = "";
-//            for(String arg : arguments) {
-//                argFull += String.format("ARG: %s", arg);
-//            }
-//
-//            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-//            alert2.setContentText(argFull);
-//            alert2.showAndWait();
-
             switch(arguments[0].toLowerCase().substring(0, 2)) {
                 case "/s":
                     isFullscreenMode = true;
@@ -81,14 +73,16 @@ public class App extends Application
                         isDialogSelectorPreviewMode = true;
                         previewWindowHandle = arguments[1];
                     } else {
-                        Alert alert = new Alert(Alert.AlertType.WARNING, "Preview Window Handle Required!", ButtonType.OK);
-
-                        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-                        stage.setAlwaysOnTop(true);
-                        alert.show();
+                        Alert alert = showSimpleAlert("Preview Window Handle Required!");
+                        alert.showAndWait();
+                        exitApplication();
                     }
                     break;
             }
+        } else {
+            Alert alert = showSimpleAlert("Install screensaver to use! Or read manual to activate manually.");
+            alert.showAndWait();
+            exitApplication();
         }
 
 
@@ -114,88 +108,135 @@ public class App extends Application
     private void startConfigMode(Stage primaryStage) throws Exception {
         primaryStage.setTitle ("Config - Eagle View");
 
+        GridPane grid = new GridPane();
+
         Label labelTest = new Label("Hello, Configuration!");
-        Scene sceneMain = new Scene(labelTest, 800, 600);
+        grid.add(labelTest,0,0);
+
+        Label labelTest2 = new Label("Learn how to configure your screensaver here:");
+        grid.add(labelTest2,0,1);
+
+        Button buttonCancel = new Button("Cancel");
+        buttonCancel.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                exitApplication();
+                event.consume();
+            }
+        });
+        grid.add(buttonCancel, 0, 2);
+
+        Button buttonSave = new Button("Save");
+        buttonSave.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                exitApplication();
+                event.consume();
+            }
+        });
+        grid.add(buttonSave, 1, 2);
+
+
+
+        Scene sceneMain = new Scene(grid, 800, 600);
 
         primaryStage.setScene(sceneMain);
         primaryStage.show();
     }
 
     private void startScreensaver(Stage primaryStage) throws Exception {
-        primaryStage.setTitle ("Eagle View");
+        boolean primaryStageUsed = false;
 
-        grid = new TilePane();
-        grid.setHgap(0);
-        grid.setVgap(0);
-        grid.setPrefRows(3);
-        grid.setPrefColumns(3);
-        grid.setPrefTileWidth((1920/3));
-        grid.setPrefTileHeight((1080/3));
+        for(Screen screen : Screen.getScreens()) {
+            Stage currentStage;
+            TilePane grid;
 
-        grid.setPrefSize(1920, 1080); // Default width and height
-        grid.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+            if(!primaryStageUsed) {
+                primaryStageUsed = true;
+                currentStage = primaryStage;
+            } else {
+                currentStage = new Stage();
+            }
 
-        for(int j = 0; j < 9; j++) {
-            String filePath = String.format("C:\\videos\\%d.mp4", j+1);
+            currentStage.setTitle ("Eagle View");
+            currentStage.toFront();
 
-            MediaPlayer player = new MediaPlayer( new Media(new File(filePath).toURI().toURL().toString()));
-            MediaView mediaView = new MediaView(player);
+            if (Screen.getPrimary().equals(screen)) {
+                currentStage.setAlwaysOnTop(true);
+            }
 
-            grid.getChildren().add(mediaView);
+            //currentStage.initModality(Modality.APPLICATION_MODAL);
 
-            mediaView.fitWidthProperty().bind(grid.prefTileWidthProperty());
-            mediaView.fitHeightProperty().bind(grid.prefTileHeightProperty());
-            mediaView.setPreserveRatio(false);
+            grid = new TilePane();
+            grid.setHgap(0);
+            grid.setVgap(0);
+            grid.setPrefRows(3);
+            grid.setPrefColumns(3);
+            grid.setPrefTileWidth((1920/3));
+            grid.setPrefTileHeight((1080/3));
 
-            player.setOnEndOfMedia(new Runnable() {
-                @Override
-                public void run() {
-                    player.seek(Duration.ZERO);
+            grid.setPrefSize(1920, 1080); // Default width and height
+            grid.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+
+            for(int j = 0; j < 9; j++) {
+                String filePath = String.format("C:\\videos\\%d.mp4", j+1);
+
+                MediaPlayer player = new MediaPlayer( new Media(new File(filePath).toURI().toURL().toString()));
+                MediaView mediaView = new MediaView(player);
+
+                grid.getChildren().add(mediaView);
+
+                mediaView.fitWidthProperty().bind(grid.prefTileWidthProperty());
+                mediaView.fitHeightProperty().bind(grid.prefTileHeightProperty());
+                mediaView.setPreserveRatio(false);
+
+                player.setOnEndOfMedia(new Runnable() {
+                    @Override
+                    public void run() {
+                        player.seek(Duration.ZERO);
+                    }
+                });
+
+                player.setOnReady(new Runnable() {
+                    @Override
+                    public void run() {
+                        int totalSeconds = (int)player.getTotalDuration().toSeconds();
+                        int currentSecondMark = generateRandomNumber(0, Math.abs(totalSeconds-10));
+                        player.seek(new Duration(currentSecondMark * 1000));
+                    }
+                });
+
+                player.setMute(true);
+                player.play();
+            }
+
+            Scene sceneMain = new Scene(grid);
+
+            sceneMain.widthProperty().addListener(new ChangeListener<Number>() {
+                @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
+                    //System.out.println("Width: " + newSceneWidth);
+                    grid.setPrefTileWidth((newSceneWidth.intValue()/3));
                 }
             });
 
-            player.setOnReady(new Runnable() {
-                @Override
-                public void run() {
-                    int totalSeconds = (int)player.getTotalDuration().toSeconds();
-                    int currentSecondMark = generateRandomNumber(0, Math.abs(totalSeconds-10));
-                    player.seek(new Duration(currentSecondMark * 1000));
+            sceneMain.heightProperty().addListener(new ChangeListener<Number>() {
+                @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
+                    grid.setPrefTileHeight((newSceneHeight.intValue()/3));
                 }
             });
 
-            player.setMute(true);
-            player.play();
-        }
 
-        Scene sceneMain = new Scene(grid);
-
-        sceneMain.widthProperty().addListener(new ChangeListener<Number>() {
-            @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
-                //System.out.println("Width: " + newSceneWidth);
-                grid.setPrefTileWidth((newSceneWidth.intValue()/3));
-            }
-        });
-
-        sceneMain.heightProperty().addListener(new ChangeListener<Number>() {
-            @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
-                grid.setPrefTileHeight((newSceneHeight.intValue()/3));
-            }
-        });
-
-        if(isFullscreenMode) {
-            primaryStage.initStyle(StageStyle.UNDECORATED);
-            primaryStage.setFullScreen(true);
-            primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); // Disable fullscreen exit message
+            currentStage.initStyle(StageStyle.UNDECORATED);
+            currentStage.setFullScreen(true);
+            currentStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); // Disable fullscreen exit message
 
             sceneMain.setCursor(Cursor.NONE);
 
-            Screen screen = Screen.getPrimary();
-            Rectangle2D bounds = screen.getVisualBounds();
-
-            primaryStage.setX(bounds.getMinX());
-            primaryStage.setY(bounds.getMinY());
-            primaryStage.setWidth(bounds.getWidth());
-            primaryStage.setHeight(bounds.getHeight());
+            Rectangle2D bounds = screen.getBounds();
+            currentStage.setX(bounds.getMinX());
+            currentStage.setY(bounds.getMinY());
+            currentStage.setWidth(bounds.getWidth());
+            currentStage.setHeight(bounds.getHeight());
 
             sceneMain.addEventFilter(MouseEvent.MOUSE_MOVED , new EventHandler<MouseEvent>() {
                 @Override
@@ -218,10 +259,14 @@ public class App extends Application
             sceneMain.setOnKeyPressed(event -> {
                 exitApplication();
             });
-        }
 
-        primaryStage.setScene(sceneMain);
-        primaryStage.show();
+
+            currentStage.setScene(sceneMain);
+            currentStage.show();
+
+            if(!isFullscreenMode)
+                break;
+        }
     }
 
     private void exitApplication() {
@@ -231,5 +276,15 @@ public class App extends Application
 
     private int generateRandomNumber(int min, int max) {
         return (random.nextInt(max + 1 - min) + min);
+    }
+
+    private Alert showSimpleAlert(String contentText) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, contentText, ButtonType.OK);
+
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.setAlwaysOnTop(true);
+        alert.initModality(Modality.APPLICATION_MODAL);
+
+        return alert;
     }
 }

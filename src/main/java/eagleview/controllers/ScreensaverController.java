@@ -1,4 +1,4 @@
-package eagleview.views;
+package eagleview.controllers;
 
 import eagleview.App;
 import eagleview.data.Utilities;
@@ -23,11 +23,11 @@ import javafx.util.Duration;
 
 import java.io.File;
 
-public class ScreensaverView {
+public class ScreensaverController {
     private static Point2D mouseLocation = null;
     private static boolean isFirstRunMouse = true;
 
-    public ScreensaverView(Stage primaryStage) throws Exception {
+    public ScreensaverController(Stage primaryStage) throws Exception {
         start(primaryStage);
     }
 

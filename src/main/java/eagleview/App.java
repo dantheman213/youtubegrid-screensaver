@@ -1,9 +1,9 @@
 package eagleview;
 
+import eagleview.controllers.ConfigurationController;
+import eagleview.controllers.ScreensaverController;
 import eagleview.data.Utilities;
 import eagleview.models.SettingsModel;
-import eagleview.views.ConfigurationView;
-import eagleview.views.ScreensaverView;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -57,9 +57,9 @@ public class App extends Application {
         });
 
         if(isFullscreenMode) {
-            new ScreensaverView(primaryStage);
+            new ScreensaverController(primaryStage);
         } else if(isConfigurationMode) {
-            new ConfigurationView(primaryStage);
+            new ConfigurationController().render(primaryStage);
         } else if(isDialogSelectorPreviewMode) {
             exitApplication();
         } else {

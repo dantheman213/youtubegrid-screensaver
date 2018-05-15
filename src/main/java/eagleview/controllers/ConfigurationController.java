@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -32,6 +33,20 @@ public class ConfigurationController {
         stage.setTitle ("Config - Eagle View");
         stage.setScene(new Scene(root, 800, 600));
         stage.show();
+    }
+
+    @FXML
+    private void handleButtonAddVideoClicked(ActionEvent event) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("What video would you like to add?");
+        dialog.setContentText("Please provide a YouTube URL to add to your video list.");
+        dialog.initOwner(stage);
+
+        dialog.showAndWait().ifPresent(x -> {
+            System.out.println(x);
+        });
+
+        event.consume();
     }
 
     @FXML

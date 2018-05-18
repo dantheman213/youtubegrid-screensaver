@@ -7,13 +7,16 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.Random;
 
 public class Utilities {
-    private static Random random = null;
+    private static Random random;
 
     public Utilities() {
-        random = new Random();
+        if(random == null) {
+            random = new Random();
+        }
     }
 
     public static Alert showSimpleAlert(String contentText) {
@@ -32,6 +35,7 @@ public class Utilities {
 
 
     public static String getApplicationPath() throws Exception {
-        return new File(SettingsModel.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath();
+        String fullPath = new File(SettingsModel.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath();
+        return Paths.get(fullPath).getParent().toString();
     }
 }

@@ -9,6 +9,10 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class App extends Application {
     public static Config config;
 
@@ -22,6 +26,8 @@ public class App extends Application {
         arguments = args;
         Utilities util = new Utilities();
         config = new Config();
+
+        checkCacheDirectories();
 
         Application.launch (args);
     }
@@ -66,6 +72,13 @@ public class App extends Application {
             exitApplication();
         } else {
             exitApplication();
+        }
+    }
+
+    private static void checkCacheDirectories() throws Exception {
+        File f = new File(Config.settings.videoCollectionDir);
+        if (!f.exists()) {
+            Files.createDirectories(Paths.get(Config.settings.videoCollectionDir));
         }
     }
 

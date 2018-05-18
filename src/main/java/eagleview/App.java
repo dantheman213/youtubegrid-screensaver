@@ -27,7 +27,7 @@ public class App extends Application {
         Utilities util = new Utilities();
         config = new Config();
 
-        checkCacheDirectories();
+        checkAppDirectories();
 
         Application.launch (args);
     }
@@ -75,10 +75,15 @@ public class App extends Application {
         }
     }
 
-    private static void checkCacheDirectories() throws Exception {
+    private static void checkAppDirectories() throws Exception {
         File f = new File(Config.settings.videoCollectionDir);
         if (!f.exists()) {
             Files.createDirectories(Paths.get(Config.settings.videoCollectionDir));
+        }
+
+        f = new File(Config.settings.binDir);
+        if(!f.exists()) {
+            Files.createDirectories(Paths.get(Config.settings.binDir));
         }
     }
 

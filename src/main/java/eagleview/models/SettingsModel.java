@@ -12,6 +12,6 @@ public class SettingsModel {
 
     public SettingsModel() throws Exception {
         // ...
-
+        
     }
 }

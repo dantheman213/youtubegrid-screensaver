@@ -1,10 +1,12 @@
 package eagleview.data;
 
+import eagleview.models.SettingsModel;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.Random;
 
 public class Utilities {
@@ -29,4 +31,7 @@ public class Utilities {
     }
 
 
+    public static String getApplicationPath() throws Exception {
+        return new File(SettingsModel.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath();
+    }
 }

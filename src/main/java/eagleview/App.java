@@ -2,14 +2,16 @@ package eagleview;
 
 import eagleview.controllers.ConfigurationController;
 import eagleview.controllers.ScreensaverController;
+import eagleview.data.Config;
 import eagleview.data.Utilities;
-import eagleview.models.SettingsModel;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 public class App extends Application {
+    public static Config config;
+
     public static boolean isFullscreenMode = false;
     public static boolean isConfigurationMode = false;
     public static boolean isDialogSelectorPreviewMode = false;
@@ -19,7 +21,7 @@ public class App extends Application {
     public static void main( String[] args ) throws Exception {
         arguments = args;
         Utilities util = new Utilities();
-        SettingsModel settings = new SettingsModel();
+        config = new Config();
 
         Application.launch (args);
     }

@@ -6,6 +6,7 @@ import eagleview.models.SettingsModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,17 +16,23 @@ import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 import org.apache.commons.lang.StringUtils;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class ConfigurationController {
     private static Stage stage;
 
     // widgets
-    private static Label labelTest3;
-    private static ListView<String> listVideo;
-    private static Button buttonAddVideo;
-    private static Button buttonRemoveVideo;
+    @FXML
+    private ListView listVideo;
+
+    @FXML
+    private Button buttonVideoAdd;
+
+    @FXML
+    private Button buttonVideoRemove;
 
     // internal data
     private static List<String> importVideoQueue;
@@ -36,17 +43,23 @@ public class ConfigurationController {
         }
     }
 
-    public void render(Stage primary) throws Exception {
+    @FXML
+    public void initialize() {
+      buttonVideoAdd.setText("shit");
+    }
+
+    public static void render(Stage primary) throws Exception {
         stage = primary;
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("views/vwConfiguration.fxml"));
+        Parent root = FXMLLoader.load(ConfigurationController.class.getClassLoader().getResource("views/vwConfiguration.fxml"));
 
         stage.setTitle ("Config - Eagle View");
         stage.setScene(new Scene(root, 800, 600));
+
         stage.show();
     }
 
     @FXML
-    private void handleButtonAddVideoClicked(ActionEvent event) throws Exception {
+    private void handleButtonVideoAddClicked(ActionEvent event) throws Exception {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("What video would you like to add?");
         dialog.setContentText("Please provide a YouTube URL to add to your video list.");

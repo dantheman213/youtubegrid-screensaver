@@ -21,11 +21,11 @@
   </rowConstraints>
    <children>
       <Label text="Welcome To Eagle View Configuration" />
-      <ListView prefHeight="267.0" prefWidth="255.0" GridPane.rowIndex="1" />
+      <ListView id="listVideo" prefHeight="267.0" prefWidth="255.0" GridPane.rowIndex="1" />
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
          <children>
-            <Button mnemonicParsing="false" text="Remove" />
-            <Button mnemonicParsing="false" onAction="#handleButtonAddVideoClicked" text="Add" />
+            <Button id="buttonVideoRemove" mnemonicParsing="false" text="Remove" />
+            <Button id="buttonVideoAdd" mnemonicParsing="false" onAction="#handleButtonVideoAddClicked" text="Add" />
          </children>
       </HBox>
       <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">

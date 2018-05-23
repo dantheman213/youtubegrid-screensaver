@@ -27,11 +27,7 @@ public class ScreensaverController {
     private static Point2D mouseLocation = null;
     private static boolean isFirstRunMouse = true;
 
-    public ScreensaverController(Stage primaryStage) throws Exception {
-        start(primaryStage);
-    }
-
-    public void start(Stage primaryStage) throws Exception {
+    public void render(Stage primaryStage) throws Exception {
         boolean primaryStageUsed = false;
 
         for(Screen screen : Screen.getScreens()) {
@@ -151,9 +147,6 @@ public class ScreensaverController {
 
             currentStage.setScene(sceneMain);
             currentStage.show();
-
-            if(!App.isFullscreenMode)
-                break;
         }
     }
 }

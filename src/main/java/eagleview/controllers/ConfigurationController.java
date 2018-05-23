@@ -1,19 +1,12 @@
 package eagleview.controllers;
 
-import com.google.gson.Gson;
 import eagleview.App;
-import eagleview.models.SettingsModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
-import javafx.stage.Stage;
 import org.apache.commons.lang.StringUtils;
 
 import java.net.URL;
@@ -21,10 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ConfigurationController {
-    private static Stage stage;
-
-    // widgets
+public class ConfigurationController implements Initializable {
     @FXML
     private ListView listVideo;
 
@@ -44,26 +34,11 @@ public class ConfigurationController {
     }
 
     @FXML
-    public void initialize() {
-      buttonVideoAdd.setText("shit");
-    }
-
-    public static void render(Stage primary) throws Exception {
-        stage = primary;
-        Parent root = FXMLLoader.load(ConfigurationController.class.getClassLoader().getResource("views/vwConfiguration.fxml"));
-
-        stage.setTitle ("Config - Eagle View");
-        stage.setScene(new Scene(root, 800, 600));
-
-        stage.show();
-    }
-
-    @FXML
     private void handleButtonVideoAddClicked(ActionEvent event) throws Exception {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("What video would you like to add?");
         dialog.setContentText("Please provide a YouTube URL to add to your video list.");
-        dialog.initOwner(stage);
+        dialog.initOwner(buttonVideoAdd.getScene().getWindow());
 
         dialog.showAndWait().ifPresent(x -> {
             if(StringUtils.isNotBlank(x)) {
@@ -79,5 +54,12 @@ public class ConfigurationController {
     private void handleButtonCloseClicked(ActionEvent event) {
         App.exitApplication();
         event.consume();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        listVideo.getItems().add("test");
+
+        System.out.println("Config window initialized!");
     }
 }

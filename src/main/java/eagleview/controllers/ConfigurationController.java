@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
 import org.apache.commons.lang.StringUtils;
@@ -44,6 +45,7 @@ public class ConfigurationController implements Initializable {
             if(StringUtils.isNotBlank(x)) {
                 System.out.println(x);
                 importVideoQueue.add(x);
+
             }
         });
 
@@ -58,7 +60,12 @@ public class ConfigurationController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        listVideo.getItems().add("test");
+        listVideo.getItems().add("YouTube Video 1");
+        listVideo.getItems().add("YouTube Video 2");
+        listVideo.getItems().add("YouTube Video 3");
+        listVideo.getItems().add("YouTube Video 4");
+        listVideo.getItems().add("YouTube Video 5");
+        listVideo.getItems().add("YouTube Video 6");
 
         System.out.println("Config window initialized!");
     }

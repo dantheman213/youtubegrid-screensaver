@@ -1,9 +1,8 @@
 package eagleview;
 
-import eagleview.controllers.ConfigurationController;
-import eagleview.controllers.ScreensaverController;
 import eagleview.data.Config;
 import eagleview.data.Utilities;
+import eagleview.data.WindowManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -15,6 +14,7 @@ import java.nio.file.Paths;
 
 public class App extends Application {
     public static Config config;
+    public static WindowManager windowManager;
 
     public static boolean isFullscreenMode = false;
     public static boolean isConfigurationMode = false;
@@ -64,10 +64,11 @@ public class App extends Application {
             exitApplication();
         });
 
+        windowManager = new WindowManager();
         if(isFullscreenMode) {
-            new ScreensaverController(primaryStage);
+            windowManager.launchScreensaver(primaryStage);
         } else if(isConfigurationMode) {
-            new ConfigurationController().render(primaryStage);
+            windowManager.launchConfigWindow(primaryStage);
         } else if(isDialogSelectorPreviewMode) {
             exitApplication();
         } else {

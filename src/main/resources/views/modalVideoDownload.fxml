@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="240.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eagleview.controllers.VideoDownloadController">
+   <children>
+      <Label layoutX="75.0" layoutY="112.0" text="Download YouTube Video..." />
+   </children>
+</AnchorPane>

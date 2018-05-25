@@ -81,11 +81,9 @@ public class VideoDownloadController implements Initializable {
                     if(bufferedReader != null) {
                         try {bufferedReader.close();} catch(Exception ex) {}
                     }
-
-                    closeWindow();
                 }
 
-
+                closeWindow();
                 return null;
             }
         };

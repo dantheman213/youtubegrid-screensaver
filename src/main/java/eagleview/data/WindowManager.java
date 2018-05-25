@@ -2,6 +2,7 @@ package eagleview.data;
 
 import eagleview.controllers.ConfigurationController;
 import eagleview.controllers.ScreensaverController;
+import eagleview.controllers.VideoDownloadController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,8 +22,11 @@ public class WindowManager {
         stage.show();
     }
 
-    public void launchVideoDownloadModal(Window parentWindow) throws Exception {
-        Parent root = FXMLLoader.load(WindowManager.class.getClassLoader().getResource("views/modalVideoDownload.fxml"));
+    public void launchVideoDownloadModal(Window parentWindow, String url) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getClassLoader().getResource("views/modalVideoDownload.fxml"));
+        Parent root = fxmlLoader.load();
+
+        VideoDownloadController controller = fxmlLoader.<VideoDownloadController>getController();
 
         Stage dialogStage = new Stage();
         dialogStage.setTitle ("Downloading Video...");
@@ -33,6 +37,8 @@ public class WindowManager {
         dialogStage.initModality(Modality.APPLICATION_MODAL);
         //dialogStage.setAlwaysOnTop(true);
         dialogStage.show();
+
+        controller.downloadVideo(url);
     }
 
     public void launchScreensaver(Stage stage) throws Exception {

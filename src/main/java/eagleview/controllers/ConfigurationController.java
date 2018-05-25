@@ -33,13 +33,14 @@ public class ConfigurationController implements Initializable {
         Window parentWindow = buttonVideoAdd.getScene().getWindow();
         dialog.initOwner(parentWindow);
 
-        dialog.showAndWait().ifPresent(x -> {
-            if(StringUtils.isNotBlank(x)) {
-                System.out.println(x);
-                // TBD ...
+        dialog.showAndWait().ifPresent(query -> {
+            if(StringUtils.isNotBlank(query)) {
+                System.out.println(query);
+
                 try {
-                    App.windowManager.launchVideoDownloadModal(parentWindow);
+                    App.windowManager.launchVideoDownloadModal(parentWindow, query);
                 } catch(Exception ex) {
+                    // TBD
                     ex.printStackTrace();
                 }
 

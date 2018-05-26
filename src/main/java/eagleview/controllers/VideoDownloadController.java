@@ -8,6 +8,7 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.io.BufferedReader;
@@ -23,6 +24,9 @@ import java.util.ResourceBundle;
 public class VideoDownloadController implements Initializable {
     @FXML
     private AnchorPane anchorPane;
+
+    @FXML
+    private TextArea textLog;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -66,7 +70,6 @@ public class VideoDownloadController implements Initializable {
 
                     ProcessBuilder procBuilder = new ProcessBuilder(cmdArgs);
                     procBuilder.directory(new File(App.config.settings.videoCollectionDir));
-                    //procBuilder.redirectErrorStream(true);
                     Process proc = procBuilder.start();
 
                     bufferedReaderStdOut = new BufferedReader(new InputStreamReader(proc.getInputStream()));
@@ -77,16 +80,34 @@ public class VideoDownloadController implements Initializable {
                     String stdOutLine = bufferedReaderStdOut.readLine();
                     String stdErrLine = bufferedReaderStdErr.readLine();
                     while(stdOutLine != null || stdErrLine != null) {
+                        String logLine = "";
                         if(stdOutLine != null) {
                             System.out.println(stdOutLine);
+                            logLine += stdOutLine + "\n";
                         }
 
                         if(stdErrLine != null) {
                             System.out.println(stdErrLine);
+                            logLine += stdErrLine + "\n";
                             isError = true;
                         }
 
-                        stdOutLine  = bufferedReaderStdOut.readLine();
+                        // On-the-fly class to pass data into runnable
+                        class UpdateWindowLog implements Runnable {
+                            private String line;
+
+                            public UpdateWindowLog(String logLine) {
+                                line = logLine;
+                            }
+
+                            @Override
+                            public void run() {
+                                textLog.setText(textLog.getText() + line);
+                            }
+                        }
+                        Platform.runLater(new UpdateWindowLog(logLine));
+
+                        stdOutLine = bufferedReaderStdOut.readLine();
                         stdErrLine = bufferedReaderStdErr.readLine();
                     }
 
@@ -103,26 +124,33 @@ public class VideoDownloadController implements Initializable {
                 }
 
                 // Create an on-the-fly custom Runnable that can receive data input into its thread
-                class CloseWindowTask implements Runnable {
-                    boolean isError;
-                    public CloseWindowTask(boolean error) {
+                class ShowDialogCompleteTask implements Runnable {
+                    private boolean isError;
+
+                    public ShowDialogCompleteTask(boolean error) {
                         isError = error;
                     }
 
+                    @Override
                     public void run() {
-                        System.out.println("Close dialog window...");
-                        closeWindow();
+                        Alert alert;
 
-                        Alert alert = Utilities.showSimpleAlert((isError ? "An error occurred!" : "Completed Successfully!"));
+                        if(isError) {
+                            alert = Utilities.showSimpleAlert("An error occurred!");
+                        } else {
+                            alert = Utilities.showSimpleAlert("Completed Successfully!");
+                        }
+
                         alert.show();
                     }
                 }
-                Platform.runLater(new CloseWindowTask(isError));
+                Platform.runLater(new ShowDialogCompleteTask(isError));
 
                 return null;
             }
         };
 
+        // Execute the task described above
         Thread thread = new Thread(task);
         thread.setDaemon(true);
         thread.start();

@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
 public class WindowManager {
@@ -30,12 +31,12 @@ public class WindowManager {
 
         Stage dialogStage = new Stage();
         dialogStage.setTitle ("Downloading Video...");
-        dialogStage.setScene(new Scene(root, 320, 240));
+        dialogStage.setScene(new Scene(root, 640, 480));
         dialogStage.setX(parentWindow.getX() + 300);
         dialogStage.setY(parentWindow.getY() + 300);
         dialogStage.initOwner(parentWindow);
         dialogStage.initModality(Modality.APPLICATION_MODAL);
-        //dialogStage.setAlwaysOnTop(true);
+        dialogStage.initStyle(StageStyle.UTILITY);
         dialogStage.show();
 
         controller.downloadVideo(url);

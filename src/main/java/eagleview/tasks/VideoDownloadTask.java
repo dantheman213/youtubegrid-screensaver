@@ -8,10 +8,10 @@ import java.io.File;
 
 public class VideoDownloadTask extends Task<Void> {
     private TextArea textLog;
-    private String url;
+    private String youtubeUrl;
 
     public VideoDownloadTask(String url, TextArea textField) {
-        url = url;
+        youtubeUrl = url;
         textLog = textField;
     }
 
@@ -24,7 +24,7 @@ public class VideoDownloadTask extends Task<Void> {
                     App.config.data.youtubeDlBin,
                     "-o %(title)s.%(ext)s",
                     "-f worstvideo[ext=mp4]",
-                    url
+                    youtubeUrl
             };
 
             ProcessBuilder procBuilder = new ProcessBuilder(cmdArgs);

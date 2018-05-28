@@ -7,7 +7,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Utilities {
@@ -17,6 +20,26 @@ public class Utilities {
         if(random == null) {
             random = new Random();
         }
+    }
+
+    public static List<String> getVideoCollection() {
+        List<String> collection = new ArrayList<String>();
+
+        File dir = new File(Config.data.videoCollectionDir);
+        File [] files = dir.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".mp4");
+            }
+        });
+
+        System.out.println("Generating video collection...");
+        for (File file : files) {
+            System.out.println("VIDEO: " + file.getAbsolutePath());
+            collection.add(file.getAbsolutePath());
+        }
+
+        return collection;
     }
 
     public static Alert showSimpleAlert(String contentText) {

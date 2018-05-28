@@ -24,7 +24,7 @@
       <ListView fx:id="listVideo" prefHeight="267.0" prefWidth="255.0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
          <children>
-            <Button fx:id="buttonVideoRemove" mnemonicParsing="false" text="Remove" />
+            <Button fx:id="buttonVideoRemove" mnemonicParsing="false" onAction="#handleButtonVideoRemoveClicked" text="Remove" />
             <Button fx:id="buttonVideoAdd" mnemonicParsing="false" onAction="#handleButtonVideoAddClicked" text="Add" />
          </children>
       </HBox>

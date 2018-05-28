@@ -5,6 +5,7 @@ import eagleview.data.Utilities;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class SettingsModel {
@@ -16,13 +17,9 @@ public class SettingsModel {
 
     public int columnCount;
     public int rowCount;
-    public List<VideoItemModel> videoCollection;
+    public List<String> videoCollection;
 
     public SettingsModel() throws Exception {
-        if(videoCollection == null) {
-            videoCollection = new ArrayList<VideoItemModel>();
-        }
-
         if(StringUtils.isEmpty(baseAppDir)) {
             baseAppDir = Utilities.getApplicationPath();
             System.out.println(String.format("Application Base Directory: %s", baseAppDir));
@@ -60,5 +57,9 @@ public class SettingsModel {
         // ... TBD change
         columnCount = 3;
         rowCount = 3;
+    }
+
+    public void updateVideoCollection() {
+        videoCollection = Utilities.getVideoCollection();
     }
 }

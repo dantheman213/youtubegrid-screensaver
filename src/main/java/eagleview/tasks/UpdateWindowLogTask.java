@@ -13,6 +13,7 @@ public class UpdateWindowLogTask implements Runnable {
 
     @Override
     public void run() {
-        this.textLog.setText(this.textLog.getText() + this.logLine);
+        this.textLog.setText(this.textLog.getText() + this.logLine + "\n");
+        this.textLog.setScrollTop(Double.MAX_VALUE);
     }
 }

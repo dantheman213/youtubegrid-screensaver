@@ -7,6 +7,7 @@ import eagleview.tasks.ShowDialogCompleteTask;
 import eagleview.tasks.UpdateWindowLogTask;
 import eagleview.tasks.VideoDownloadTask;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

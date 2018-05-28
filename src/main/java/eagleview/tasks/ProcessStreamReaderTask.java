@@ -30,13 +30,16 @@ public class ProcessStreamReaderTask implements Runnable {
 
             while(stdOutput != null) {
                 System.out.println(stdOutput);
-                Platform.runLater(new UpdateWindowLogTask(stdOutput, textLog));
+                if(this.textLog != null) {
+                    Platform.runLater(new UpdateWindowLogTask(stdOutput, textLog));
+                }
 
                 stdOutput = bufferedReader.readLine();
             }
         } catch(Exception ex) {
             ex.printStackTrace();
         } finally {
+            System.out.println("Stream finished.. closing buffer!");
             try { bufferedReader.close();} catch(Exception ex) { ex.printStackTrace(); }
         }
     }

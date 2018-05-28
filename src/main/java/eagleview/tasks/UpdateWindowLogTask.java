@@ -7,13 +7,13 @@ public class UpdateWindowLogTask implements Runnable {
     private TextArea textLog;
 
     public UpdateWindowLogTask(String line, TextArea textField) {
-        this.logLine = line;
-        this.textLog = textField;
+        logLine = line;
+        textLog = textField;
     }
 
     @Override
     public void run() {
-        this.textLog.setText(this.textLog.getText() + this.logLine + "\n");
-        this.textLog.setScrollTop(Double.MAX_VALUE);
+        textLog.setText(textLog.getText() + logLine + "\n");
+        textLog.setScrollTop(Double.MAX_VALUE);
     }
 }

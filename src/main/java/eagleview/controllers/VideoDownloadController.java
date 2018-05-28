@@ -29,6 +29,8 @@ public class VideoDownloadController implements Initializable {
     }
 
     public void downloadVideo(String url) throws Exception {
+        checkForYouTubeDlBinary();
+
         Task<Void> task = new VideoDownloadTask(url, textLog);
         Thread thread = new Thread(task);
         thread.setDaemon(true);

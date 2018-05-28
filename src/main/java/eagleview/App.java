@@ -27,6 +27,7 @@ public class App extends Application {
 
         Utilities util = new Utilities();
         config = new Config();
+        config.data.updateVideoCollection();
 
         checkAppDirectories();
 

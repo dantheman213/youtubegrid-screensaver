@@ -20,10 +20,11 @@ public class WindowManager {
         stage.setScene(new Scene(root, 800, 600));
 
         //stage.setAlwaysOnTop(true);
+
         stage.show();
     }
 
-    public void launchVideoDownloadModal(Window parentWindow, String url) throws Exception {
+    public Stage launchVideoDownloadModal(Window parentWindow, String url) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getClassLoader().getResource("views/modalVideoDownload.fxml"));
         Parent root = fxmlLoader.load();
 
@@ -40,6 +41,8 @@ public class WindowManager {
         dialogStage.show();
 
         controller.downloadVideo(url);
+
+        return dialogStage;
     }
 
     public void launchScreensaver(Stage stage) throws Exception {

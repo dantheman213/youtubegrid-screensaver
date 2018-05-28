@@ -23,8 +23,6 @@ public class VideoDownloadTask extends Task<Void> {
         BufferedReader bufferedReaderStdOut = null;
         BufferedReader bufferedReaderStdErr = null;
 
-        boolean isError = false;
-
         try {
             System.out.println("Starting video download thread...");
 
@@ -39,38 +37,20 @@ public class VideoDownloadTask extends Task<Void> {
             procBuilder.directory(new File(App.config.settings.videoCollectionDir));
             Process proc = procBuilder.start();
 
-            bufferedReaderStdOut = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-            bufferedReaderStdErr = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
+            Thread threadStdOut = new Thread(new ProcessStreamReaderTask(proc.getInputStream(), this.textLog));
+            threadStdOut.setDaemon(true);
+            threadStdOut.start();
 
-            System.out.println("Checking for program response...");
+            Thread threadStdErr = new Thread(new ProcessStreamReaderTask(proc.getErrorStream(), this.textLog));
+            threadStdErr.setDaemon(true);
+            threadStdErr.start();
 
-            String stdOutLine = bufferedReaderStdOut.readLine();
-            String stdErrLine = bufferedReaderStdErr.readLine();
-
-            while(stdOutLine != null || stdErrLine != null) {
-                String logLine = "";
-
-                if(stdOutLine != null) {
-                    System.out.println(stdOutLine);
-                    logLine += stdOutLine + "\n";
-                }
-
-                if(stdErrLine != null) {
-                    System.out.println(stdErrLine);
-                    logLine += stdErrLine + "\n";
-                    isError = true;
-                }
-
-                Platform.runLater(new UpdateWindowLogTask(logLine, textLog));
-
-                stdOutLine = bufferedReaderStdOut.readLine();
-                stdErrLine = bufferedReaderStdErr.readLine();
-            }
+            // wait for both threads to finish before continuing
+            threadStdOut.join();
+            threadStdErr.join();
 
             proc.waitFor();
         } catch(Exception ex) {
-            // TBD
-            isError = true;
             ex.printStackTrace();
         } finally {
             System.out.println("Finished.. closing buffer.");
@@ -78,8 +58,6 @@ public class VideoDownloadTask extends Task<Void> {
                 try {bufferedReaderStdOut.close();} catch(Exception ex) {}
             }
         }
-
-        Platform.runLater(new ShowDialogCompleteTask(isError));
 
         return null;
     }

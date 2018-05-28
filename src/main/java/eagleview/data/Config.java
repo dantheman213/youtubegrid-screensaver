@@ -3,11 +3,11 @@ package eagleview.data;
 import eagleview.models.SettingsModel;
 
 public class Config {
-    public static SettingsModel settings;
+    public static SettingsModel data;
 
     public Config() throws Exception {
-        if(settings == null) {
-            settings = new SettingsModel();
+        if(data == null) {
+            data = new SettingsModel();
         }
     }
 }

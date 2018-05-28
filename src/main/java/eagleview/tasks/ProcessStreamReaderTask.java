@@ -25,8 +25,8 @@ public class ProcessStreamReaderTask implements Runnable {
     @Override
     public void run() {
         try {
-            bufferedReader = new BufferedReader(this.inputStreamReader);
-            String stdOutput = bufferedReader.readLine();
+            this.bufferedReader = new BufferedReader(this.inputStreamReader);
+            String stdOutput = this.bufferedReader.readLine();
 
             while(stdOutput != null) {
                 System.out.println(stdOutput);
@@ -34,13 +34,13 @@ public class ProcessStreamReaderTask implements Runnable {
                     Platform.runLater(new UpdateWindowLogTask(stdOutput, this.textLog));
                 }
 
-                stdOutput = bufferedReader.readLine();
+                stdOutput = this.bufferedReader.readLine();
             }
         } catch(Exception ex) {
             ex.printStackTrace();
         } finally {
             System.out.println("Stream finished.. closing buffer!");
-            try { bufferedReader.close();} catch(Exception ex) { ex.printStackTrace(); }
+            try { this.bufferedReader.close();} catch(Exception ex) { ex.printStackTrace(); }
         }
     }
 }

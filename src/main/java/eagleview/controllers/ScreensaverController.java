@@ -62,7 +62,7 @@ public class ScreensaverController {
             grid.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
 
             for(int j = 0; j < 9; j++) {
-                String filePath = String.format("%s%s%d.mp4", App.config.settings.videoCollectionDir, File.separator, j+1);
+                String filePath = String.format("%s%s%d.mp4", App.config.data.videoCollectionDir, File.separator, j+1);
                 System.out.println(String.format("Loading video: %s", filePath));
 
                 MediaPlayer player = new MediaPlayer( new Media(new File(filePath).toURI().toURL().toString()));

@@ -24,12 +24,13 @@ public class App extends Application {
 
     public static void main( String[] args ) throws Exception {
         arguments = args;
+
         Utilities util = new Utilities();
         config = new Config();
 
         checkAppDirectories();
 
-        Application.launch (args);
+        Application.launch(args);
     }
 
     @Override
@@ -77,14 +78,14 @@ public class App extends Application {
     }
 
     private static void checkAppDirectories() throws Exception {
-        File f = new File(Config.settings.videoCollectionDir);
+        File f = new File(Config.data.videoCollectionDir);
         if (!f.exists()) {
-            Files.createDirectories(Paths.get(Config.settings.videoCollectionDir));
+            Files.createDirectories(Paths.get(Config.data.videoCollectionDir));
         }
 
-        f = new File(Config.settings.binDir);
+        f = new File(Config.data.binDir);
         if(!f.exists()) {
-            Files.createDirectories(Paths.get(Config.settings.binDir));
+            Files.createDirectories(Paths.get(Config.data.binDir));
         }
     }
 

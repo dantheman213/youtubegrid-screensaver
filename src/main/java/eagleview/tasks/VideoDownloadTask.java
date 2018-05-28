@@ -20,9 +20,6 @@ public class VideoDownloadTask extends Task<Void> {
 
     @Override
     protected Void call() {
-        BufferedReader bufferedReaderStdOut = null;
-        BufferedReader bufferedReaderStdErr = null;
-
         try {
             System.out.println("Starting video download thread...");
 
@@ -52,11 +49,6 @@ public class VideoDownloadTask extends Task<Void> {
             proc.waitFor();
         } catch(Exception ex) {
             ex.printStackTrace();
-        } finally {
-            System.out.println("Finished.. closing buffer.");
-            if(bufferedReaderStdOut != null) {
-                try {bufferedReaderStdOut.close();} catch(Exception ex) {}
-            }
         }
 
         return null;

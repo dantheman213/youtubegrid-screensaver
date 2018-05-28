@@ -11,8 +11,8 @@ public class VideoDownloadTask extends Task<Void> {
     private String url;
 
     public VideoDownloadTask(String url, TextArea textField) {
-        this.url = url;
-        this.textLog = textField;
+        url = url;
+        textLog = textField;
     }
 
     @Override
@@ -31,11 +31,11 @@ public class VideoDownloadTask extends Task<Void> {
             procBuilder.directory(new File(App.config.data.videoCollectionDir));
             Process proc = procBuilder.start();
 
-            Thread threadStdOut = new Thread(new ProcessStreamReaderTask(proc.getInputStream(), this.textLog));
+            Thread threadStdOut = new Thread(new ProcessStreamReaderTask(proc.getInputStream(), textLog));
             threadStdOut.setDaemon(true);
             threadStdOut.start();
 
-            Thread threadStdErr = new Thread(new ProcessStreamReaderTask(proc.getErrorStream(), this.textLog));
+            Thread threadStdErr = new Thread(new ProcessStreamReaderTask(proc.getErrorStream(), textLog));
             threadStdErr.setDaemon(true);
             threadStdErr.start();
 

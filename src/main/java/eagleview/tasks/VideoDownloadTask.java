@@ -22,10 +22,14 @@ public class VideoDownloadTask extends Task<Void> {
 
             String[] cmdArgs = {
                     App.config.data.youtubeDlBin,
+                    "--abort-on-error",
                     "-o %(title)s.%(ext)s",
-                    "-f worstvideo[ext=mp4]",
+                    "--no-playlist",
+                    "-f bestvideo[height<=480]",
                     youtubeUrl
             };
+
+            System.out.println("EXECUTING COMMAND: " + String.join(" ", cmdArgs));
 
             ProcessBuilder procBuilder = new ProcessBuilder(cmdArgs);
             procBuilder.directory(new File(App.config.data.videoCollectionDir));

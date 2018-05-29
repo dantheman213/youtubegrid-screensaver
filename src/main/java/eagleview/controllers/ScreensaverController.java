@@ -27,6 +27,37 @@ public class ScreensaverController {
     private static Point2D mouseLocation = null;
     private static boolean isFirstRunMouse = true;
 
+    private MediaView generateVideoPlayerWithVideo() throws Exception {
+        String filePath = new File(App.config.data.videoCollection.get(Utilities.generateRandomNumber(0, App.config.data.videoCollection.size()-1))).getPath();
+        System.out.println(String.format("Loading video: %s", filePath));
+
+        MediaPlayer player = new MediaPlayer( new Media(new File(filePath).toURI().toURL().toString()));
+        MediaView mediaView = new MediaView(player);
+        mediaView.setPreserveRatio(false);
+
+        player.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                player.seek(Duration.ZERO);
+            }
+        });
+
+        player.setOnReady(new Runnable() {
+            @Override
+            public void run() {
+                int totalSeconds = (int)player.getTotalDuration().toSeconds();
+                int currentSecondMark = Utilities.generateRandomNumber(0, Math.abs(totalSeconds-10));
+                player.seek(new Duration(currentSecondMark * 1000));
+
+                player.play();
+            }
+        });
+
+        player.setMute(true);
+
+        return mediaView;
+    }
+
     public void render(Stage primaryStage) throws Exception {
         boolean primaryStageUsed = false;
 
@@ -62,36 +93,11 @@ public class ScreensaverController {
             grid.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
 
             for(int j = 0; j < 9; j++) {
-                String filePath = String.format("%s%s%d.mp4", App.config.data.videoCollectionDir, File.separator, j+1);
-                System.out.println(String.format("Loading video: %s", filePath));
-
-                MediaPlayer player = new MediaPlayer( new Media(new File(filePath).toURI().toURL().toString()));
-                MediaView mediaView = new MediaView(player);
-
-                grid.getChildren().add(mediaView);
-
+                MediaView mediaView = generateVideoPlayerWithVideo();
                 mediaView.fitWidthProperty().bind(grid.prefTileWidthProperty());
                 mediaView.fitHeightProperty().bind(grid.prefTileHeightProperty());
-                mediaView.setPreserveRatio(false);
 
-                player.setOnEndOfMedia(new Runnable() {
-                    @Override
-                    public void run() {
-                        player.seek(Duration.ZERO);
-                    }
-                });
-
-                player.setOnReady(new Runnable() {
-                    @Override
-                    public void run() {
-                        int totalSeconds = (int)player.getTotalDuration().toSeconds();
-                        int currentSecondMark = Utilities.generateRandomNumber(0, Math.abs(totalSeconds-10));
-                        player.seek(new Duration(currentSecondMark * 1000));
-                    }
-                });
-
-                player.setMute(true);
-                player.play();
+                grid.getChildren().add(mediaView);
             }
 
             Scene sceneMain = new Scene(grid);

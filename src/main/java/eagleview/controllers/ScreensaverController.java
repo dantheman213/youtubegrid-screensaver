@@ -39,6 +39,7 @@ public class ScreensaverController {
             @Override
             public void run() {
                 player.seek(Duration.ZERO);
+                player.play();
             }
         });
 
@@ -49,6 +50,15 @@ public class ScreensaverController {
                 int currentSecondMark = Utilities.generateRandomNumber(0, Math.abs(totalSeconds-10));
                 player.seek(new Duration(currentSecondMark * 1000));
 
+                player.play();
+            }
+        });
+
+        player.setOnError(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("UNABLE TO LOAD VIDEO..! Retrying..");
+                player.seek(Duration.ZERO);
                 player.play();
             }
         });

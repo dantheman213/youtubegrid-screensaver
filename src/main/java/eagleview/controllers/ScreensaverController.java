@@ -22,13 +22,27 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.File;
+import java.util.List;
 
 public class ScreensaverController {
     private static Point2D mouseLocation = null;
     private static boolean isFirstRunMouse = true;
 
+    private static final int tileCount = 9;
+    private static List<String> videoQueue;
+
     private MediaView generateVideoPlayerWithVideo() throws Exception {
-        String filePath = new File(App.config.data.videoCollection.get(Utilities.generateRandomNumber(0, App.config.data.videoCollection.size()-1))).getPath();
+        String filePath;
+
+        if(videoQueue != null) {
+            // unique vids
+            int randomIndex = Utilities.generateRandomNumber(0, videoQueue.size()-1);
+            filePath = videoQueue.get(randomIndex);
+            videoQueue.remove(randomIndex);
+        } else {
+            // any random vid
+            filePath = App.config.data.videoCollection.get(Utilities.generateRandomNumber(0, App.config.data.videoCollection.size()-1));
+        }
         System.out.println(String.format("Loading video: %s", filePath));
 
         MediaPlayer player = new MediaPlayer( new Media(new File(filePath).toURI().toURL().toString()));
@@ -102,7 +116,18 @@ public class ScreensaverController {
             grid.setPrefSize(1920, 1080); // Default width and height
             grid.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
 
-            for(int j = 0; j < 9; j++) {
+            int videoCount = App.config.data.videoCollection.size();
+            int totalTileCount = tileCount * Screen.getScreens().size();
+            System.out.println(String.format("Need to load %d video tiles.. have %d video files...", totalTileCount, videoCount));
+            if(videoCount >= totalTileCount) {
+                // Get unique videos since the video collection is larger than the anticipated tile count
+                System.out.println("Will load unique videos..!");
+                videoQueue = App.config.data.videoCollection;
+            } else {
+                System.out.println("Will load random videos that may repeat..! Add more videos if you want a unique video per tile.");
+            }
+
+            for(int j = 0; j < tileCount; j++) {
                 MediaView mediaView = generateVideoPlayerWithVideo();
                 mediaView.fitWidthProperty().bind(grid.prefTileWidthProperty());
                 mediaView.fitHeightProperty().bind(grid.prefTileHeightProperty());

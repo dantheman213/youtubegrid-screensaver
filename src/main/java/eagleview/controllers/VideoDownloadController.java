@@ -35,6 +35,25 @@ public class VideoDownloadController implements Initializable {
         Thread thread = new Thread(task);
         thread.setDaemon(true);
         thread.start();
+
+        // scroll to very bottom after process stream ends
+        task.setOnSucceeded(event -> {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    textLog.setScrollTop(Double.MAX_VALUE);
+                }
+            });
+        });
+
+        task.setOnFailed(event -> {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    textLog.setScrollTop(Double.MAX_VALUE);
+                }
+            });
+        });
     }
 
     private void checkForYouTubeDlBinary() throws Exception {

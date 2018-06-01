@@ -1,8 +1,8 @@
-package eagleview.controllers;
+package youtubegrid.controllers;
 
-import eagleview.data.Config;
-import eagleview.data.Utilities;
-import eagleview.tasks.VideoDownloadTask;
+import youtubegrid.data.Config;
+import youtubegrid.data.Utilities;
+import youtubegrid.tasks.VideoDownloadTask;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;

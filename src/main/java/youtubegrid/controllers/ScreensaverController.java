@@ -1,7 +1,8 @@
-package eagleview.controllers;
+package youtubegrid.controllers;
 
-import eagleview.App;
-import eagleview.data.Utilities;
+import javafx.scene.paint.Color;
+import youtubegrid.App;
+import youtubegrid.data.Utilities;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -94,16 +95,15 @@ public class ScreensaverController {
                 currentStage = primaryStage;
             } else {
                 currentStage = new Stage();
+                currentStage.initOwner(primaryStage); // allow multiple app windows to be on top of all displays and windows in them
             }
 
-            currentStage.setTitle ("Eagle View");
+            currentStage.setTitle ("YouTube Grid");
             currentStage.toFront();
 
             if (Screen.getPrimary().equals(screen)) {
                 currentStage.setAlwaysOnTop(true);
             }
-
-            //currentStage.initModality(Modality.APPLICATION_MODAL);
 
             grid = new TilePane();
             grid.setHgap(0);
@@ -185,6 +185,7 @@ public class ScreensaverController {
                 App.exitApplication();
             });
 
+            sceneMain.setFill(Color.BLACK);
 
             currentStage.setScene(sceneMain);
             currentStage.show();

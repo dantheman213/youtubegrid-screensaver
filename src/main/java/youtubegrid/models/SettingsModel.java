@@ -1,7 +1,7 @@
-package eagleview.models;
+package youtubegrid.models;
 
-import eagleview.data.OsDetect;
-import eagleview.data.Utilities;
+import youtubegrid.data.OsDetect;
+import youtubegrid.data.Utilities;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.File;

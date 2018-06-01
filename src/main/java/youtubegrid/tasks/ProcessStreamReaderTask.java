@@ -1,4 +1,4 @@
-package eagleview.tasks;
+package youtubegrid.tasks;
 
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;

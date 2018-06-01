@@ -1,6 +1,6 @@
-package eagleview.data;
+package youtubegrid.data;
 
-import eagleview.models.SettingsModel;
+import youtubegrid.models.SettingsModel;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Modality;

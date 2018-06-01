@@ -1,6 +1,6 @@
-package eagleview.tasks;
+package youtubegrid.tasks;
 
-import eagleview.data.Utilities;
+import youtubegrid.data.Utilities;
 import javafx.scene.control.Alert;
 
 public class ShowDialogCompleteTask implements Runnable {

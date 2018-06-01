@@ -22,7 +22,7 @@ public class App extends Application {
     public static String previewWindowHandle = null;
     public static String[] arguments = null;
 
-    public static void main( String[] args ) throws Exception {
+    public static void main(String[] args) throws Exception {
         arguments = args;
 
         Utilities util = new Utilities();
@@ -35,7 +35,7 @@ public class App extends Application {
     }
 
     @Override
-    public void start (Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws Exception {
         if(arguments.length > 0) {
             switch(arguments[0].toLowerCase().substring(0, 2)) {
                 case "/s":

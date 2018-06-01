@@ -26,17 +26,16 @@ public class Utilities {
         List<String> collection = new ArrayList<String>();
 
         File dir = new File(Config.data.videoCollectionDir);
-        File [] files = dir.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.endsWith(".mp4");
-            }
-        });
+        File [] files = dir.listFiles();
 
         System.out.println("Generating video collection...");
-        for (File file : files) {
-            System.out.println("VIDEO: " + file.getAbsolutePath());
-            collection.add(file.getAbsolutePath());
+        if(files != null) {
+            for (File file : files) {
+                if(file.getName().trim().toLowerCase().endsWith(".mp4")) {
+                    System.out.println("VIDEO: " + file.getAbsolutePath());
+                    collection.add(file.getAbsolutePath());
+                }
+            }
         }
 
         return collection;

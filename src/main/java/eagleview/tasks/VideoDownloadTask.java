@@ -5,6 +5,8 @@ import javafx.concurrent.Task;
 import javafx.scene.control.TextArea;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VideoDownloadTask extends Task<Void> {
     private TextArea textLog;
@@ -20,14 +22,14 @@ public class VideoDownloadTask extends Task<Void> {
         try {
             System.out.println("Starting video download thread...");
 
-            String[] cmdArgs = {
-                    App.config.data.youtubeDlBin,
-                    "--abort-on-error",
-                    "-o %(title)s.%(ext)s",
-                    "--no-playlist",
-                    "-f best[height<=480][ext=mp4]",
-                    youtubeUrl
-            };
+            List<String> cmdArgs = new ArrayList<String>();
+            cmdArgs.add(App.config.data.youtubeDlBin);
+            cmdArgs.add("--abort-on-error");
+            cmdArgs.add("-o %(title)s.%(ext)s");
+            cmdArgs.add("--no-playlist");
+            cmdArgs.add("-f best[height<=480][ext=mp4]");
+            cmdArgs.add(youtubeUrl);
+
 
             System.out.println("EXECUTING COMMAND: " + String.join(" ", cmdArgs));
 

@@ -4,6 +4,7 @@ import eagleview.data.OsDetect;
 import eagleview.data.Utilities;
 import org.apache.commons.lang.StringUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -26,12 +27,12 @@ public class SettingsModel {
         }
 
         if(StringUtils.isEmpty(videoCollectionDir)) {
-            videoCollectionDir = String.format("%s/cache/videos", baseAppDir);
+            videoCollectionDir = String.format("%s%scache%svideos", baseAppDir, File.separator, File.separator);
             System.out.println(String.format("Video Cache Directory: %s", videoCollectionDir));
         }
 
         if(StringUtils.isEmpty(binDir)) {
-            binDir = String.format("%s/bin", baseAppDir);
+            binDir = String.format("%s%sbin", baseAppDir, File.separator);
             System.out.println(String.format("Ext Binary Directory: %s", binDir));
         }
 
@@ -50,7 +51,7 @@ public class SettingsModel {
                     throw new Exception("Unknown operating system");
             }
 
-            youtubeDlBin = String.format("%s/youtube-dl%s", binDir, osSuffix);
+            youtubeDlBin = String.format("%s%syoutube-dl%s", binDir, File.separator, osSuffix);
             System.out.println(String.format("youtube-dl bin: %s", youtubeDlBin));
         }
 

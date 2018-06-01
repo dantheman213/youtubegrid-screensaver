@@ -1,8 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'javafx-gradle-plugin'
 
-group 'eagleview'
-version '1.0-SNAPSHOT'
+archivesBaseName = "youtubegrid"
 
 if (JavaVersion.current() != JavaVersion.VERSION_1_8) {
     throw new GradleException("Must Build with Java 1.8")
@@ -23,7 +22,7 @@ targetCompatibility = 1.8
 
 task fatJar(type: Jar) {
     manifest {
-        attributes 'Main-Class': 'eagleview.App'
+        attributes 'Main-Class': 'youtubegrid.App'
 
     }
 
@@ -50,8 +49,8 @@ dependencies {
 
 jfx {
     // Minimal requirement for jfxJar-task
-    mainClass = 'eagleview.App'
+    mainClass = 'youtubegrid.App'
 
     // Minimal requirement for jfxNative-task
-    vendor = 'eagleview'
+    vendor = 'youtubegrid'
 }

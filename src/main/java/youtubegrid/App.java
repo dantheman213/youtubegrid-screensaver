@@ -1,8 +1,8 @@
-package eagleview;
+package youtubegrid;
 
-import eagleview.data.Config;
-import eagleview.data.Utilities;
-import eagleview.data.WindowManager;
+import youtubegrid.data.Config;
+import youtubegrid.data.Utilities;
+import youtubegrid.data.WindowManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;

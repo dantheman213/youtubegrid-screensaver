@@ -1,7 +1,7 @@
-package eagleview.controllers;
+package youtubegrid.controllers;
 
-import eagleview.App;
-import eagleview.data.Config;
+import youtubegrid.App;
+import youtubegrid.data.Config;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -1,8 +1,8 @@
-package eagleview.data;
+package youtubegrid.data;
 
-import eagleview.controllers.ConfigurationController;
-import eagleview.controllers.ScreensaverController;
-import eagleview.controllers.VideoDownloadController;
+import youtubegrid.controllers.ConfigurationController;
+import youtubegrid.controllers.ScreensaverController;
+import youtubegrid.controllers.VideoDownloadController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,7 +16,7 @@ public class WindowManager {
     public void launchConfigWindow(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(WindowManager.class.getClassLoader().getResource("views/vwConfiguration.fxml"));
 
-        stage.setTitle ("Config - Eagle View");
+        stage.setTitle ("Config - YouTube Grid Screensaver");
         stage.setScene(new Scene(root, 800, 600));
 
         //stage.setAlwaysOnTop(true);

@@ -1,4 +1,4 @@
-package eagleview.data;
+package youtubegrid.data;
 
 public class OsDetect {
     public enum OperatingSystem {

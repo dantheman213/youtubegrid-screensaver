@@ -1,6 +1,6 @@
-package eagleview.data;
+package youtubegrid.data;
 
-import eagleview.models.SettingsModel;
+import youtubegrid.models.SettingsModel;
 
 public class Config {
     public static SettingsModel data;

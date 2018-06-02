@@ -46,14 +46,16 @@ public class App extends Application {
                     isConfigurationMode = true;
                     break;
                 case "/p":
-                    if(arguments.length > 1) {
-                        isDialogSelectorPreviewMode = true;
-                        previewWindowHandle = arguments[1];
-                    } else {
-                        Alert alert = Utilities.showSimpleAlert("Preview Window Handle Required!");
-                        alert.showAndWait();
-                        exitApplication();
-                    }
+                    //if(arguments.length > 1) {
+                    //    isDialogSelectorPreviewMode = true;
+                    //    previewWindowHandle = arguments[1];
+                    //} else {
+                    //    Alert alert = Utilities.showSimpleAlert("Preview Window Handle Required!");
+                    //    alert.showAndWait();
+                    //    exitApplication();
+                    //}
+
+                    exitApplication();
                     break;
             }
         } else {

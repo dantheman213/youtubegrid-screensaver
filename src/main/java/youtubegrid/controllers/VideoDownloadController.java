@@ -41,7 +41,24 @@ public class VideoDownloadController implements Initializable {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    textLog.setScrollTop(Double.MAX_VALUE);
+                    textLog.setText(textLog.getText() + "\n\nFINISHED!\n\n");
+
+                    // wait 1 second then call the scroll to bottom method
+                    new java.util.Timer().schedule(
+                            new java.util.TimerTask() {
+                                @Override
+                                public void run() {
+                                    Platform.runLater(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            textLog.setScrollTop(Double.MAX_VALUE);
+                                        }
+                                    });
+                                }
+                            },
+                            1000
+                    );
+
                 }
             });
         });

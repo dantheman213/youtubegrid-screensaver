@@ -1,5 +1,6 @@
 package youtubegrid.tasks;
 
+import javafx.application.Platform;
 import youtubegrid.App;
 import javafx.concurrent.Task;
 import javafx.scene.control.TextArea;

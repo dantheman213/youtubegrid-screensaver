@@ -16,6 +16,7 @@ import org.apache.commons.lang.StringUtils;
 import youtubegrid.data.Utilities;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
@@ -46,11 +47,19 @@ public class ConfigurationController implements Initializable {
                 System.out.println(query);
 
                 try {
-                    Stage dialogStage = App.windowManager.launchVideoDownloadModal(parentWindow, query);
-                    dialogStage.setOnCloseRequest(dialogEvent -> {
-                        updateVideoList();
-                    });
-
+                    URL youtubeVidUrl = new URL(query);
+                    if (!youtubeVidUrl.getHost().contains("youtube.com")) {
+                        Alert alert = Utilities.showSimpleAlert("Only YouTube Video URLs can be used!");
+                        alert.show();
+                    } else {
+                        Stage dialogStage = App.windowManager.launchVideoDownloadModal(parentWindow, query);
+                        dialogStage.setOnCloseRequest(dialogEvent -> {
+                            updateVideoList();
+                        });
+                    }
+                } catch(MalformedURLException ex) {
+                    Alert alert = Utilities.showSimpleAlert("Please enter a valid YouTube URL in order to continue!");
+                    alert.show();
                 } catch(Exception ex) {
                     // TBD
                     ex.printStackTrace();

@@ -1,5 +1,6 @@
 package youtubegrid.data;
 
+import youtubegrid.App;
 import youtubegrid.models.SettingsModel;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -41,6 +42,10 @@ public class Utilities {
         return collection;
     }
 
+    public static String getVideoCollectionDiskSize() {
+        return humanReadableByteCount(folderSize(new File(App.config.data.videoCollectionDir)), true);
+    }
+
     public static Alert showSimpleAlert(String contentText) {
         Alert alert = new Alert(Alert.AlertType.WARNING, contentText, ButtonType.OK);
 
@@ -59,5 +64,24 @@ public class Utilities {
     public static String getApplicationPath() throws Exception {
         String fullPath = new File(SettingsModel.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath();
         return Paths.get(fullPath).getParent().toString();
+    }
+
+    public static long folderSize(File directory) {
+        long length = 0;
+        for (File file : directory.listFiles()) {
+            if (file.isFile())
+                length += file.length();
+            else
+                length += folderSize(file);
+        }
+        return length;
+    }
+
+    public static String humanReadableByteCount(long bytes, boolean si) {
+        int unit = si ? 1000 : 1024;
+        if (bytes < unit) return bytes + " B";
+        int exp = (int) (Math.log(bytes) / Math.log(unit));
+        String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp-1) + (si ? "" : "i");
+        return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
     }
 }

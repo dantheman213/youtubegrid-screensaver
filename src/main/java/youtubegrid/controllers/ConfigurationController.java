@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import org.apache.commons.lang.StringUtils;
+import youtubegrid.data.Utilities;
 
 import java.io.File;
 import java.net.URL;
@@ -21,6 +22,9 @@ import java.util.*;
 public class ConfigurationController implements Initializable {
     @FXML
     private ListView listVideo;
+
+    @FXML
+    private Label labelDiskUsage;
 
     @FXML
     private Button buttonVideoAdd;
@@ -103,6 +107,8 @@ public class ConfigurationController implements Initializable {
                     String name = new File(path).getName();
                     listVideo.getItems().add(name);
                 }
+
+                labelDiskUsage.setText(String.format("Video Collection Disk Usage: %s", Utilities.getVideoCollectionDiskSize()));
             }
         });
     }

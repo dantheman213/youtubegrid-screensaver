@@ -85,8 +85,14 @@ public class ConfigurationController implements Initializable {
                 alert.showAndWait().ifPresent(type -> {
                     if(type == ButtonType.YES) {
                         System.out.println("Deleting video " + fileName);
-                        File file = new File(App.config.data.videoCollectionDir + File.separator + fileName);
-                        file.delete();
+
+                        try {
+                            File file = new File(App.config.data.videoCollectionDir + File.separator + fileName);
+                            file.delete();
+                        } catch(Exception ex) {
+                            Alert alertError = Utilities.showSimpleAlert("Unable to delete file!");
+                            alertError.show();
+                        }
 
                         updateVideoList();
                     }

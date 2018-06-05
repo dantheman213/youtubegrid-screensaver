@@ -32,7 +32,8 @@
       </HBox>
       <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleButtonCloseClicked" text="Close" />
+             <Button mnemonicParsing="false" onAction="#handleButtonOpenFolder" text="Open Video Folder" />
+             <Button mnemonicParsing="false" onAction="#handleButtonCloseClicked" text="Close" />
          </children>
       </HBox>
       <Label text="Video List:" GridPane.rowIndex="1" />

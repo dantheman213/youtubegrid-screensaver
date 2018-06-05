@@ -1,5 +1,7 @@
 package youtubegrid.controllers;
 
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import youtubegrid.App;
 import youtubegrid.data.Config;
 import javafx.application.Platform;
@@ -15,6 +17,7 @@ import javafx.stage.Window;
 import org.apache.commons.lang.StringUtils;
 import youtubegrid.data.Utilities;
 
+import java.awt.*;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -89,6 +92,20 @@ public class ConfigurationController implements Initializable {
                     }
                 });
             }
+        }
+    }
+
+    @FXML
+    private void handleButtonOpenFolder(ActionEvent event) {
+        try {
+            if(Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().open(new File(App.config.data.videoCollectionDir));
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+
+            Alert alert = Utilities.showSimpleAlert("Unable to open video directory!");
+            alert.show();
         }
     }
 

@@ -11,8 +11,10 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class Utilities {
     private static Random random;
@@ -37,6 +39,9 @@ public class Utilities {
                     collection.add(file.getAbsolutePath());
                 }
             }
+
+            // sort files alphabetically
+            collection = collection.stream().sorted().collect(Collectors.toList());
         }
 
         return collection;

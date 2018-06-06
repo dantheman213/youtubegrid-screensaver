@@ -10,6 +10,16 @@ YouTube Grid is a cross platform screensaver that allows you to download YouTube
 
 ## Download
 
+### Prerequisites
+
+Java Runtime Environment -- [Download here](http://www.oracle.com/technetwork/java/javase/downloads/jre10-downloads-4417026.html)
+
+#### For Windows Users (additional)
+
+Microsoft .NET Framework 4.7.1 (Offline Installer) -- [Download here](https://www.microsoft.com/en-us/download/details.aspx?id=56116)
+
+### Releases
+
 Visit the `Releases` section of this repo or [click here](https://github.com/dantheman213/youtubegrid-screensaver/releases) to download the latest installer available:
 
 NOTE: Currently the only installer available for this screensaver is available for Windows. Mac OS and Linux installers are actively being developed on.

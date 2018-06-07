@@ -6,7 +6,13 @@ YouTube Grid is a cross-platform screensaver that will display YouTube videos in
 
 ## How It Works
 
+### Practical
+
 YouTube Grid is a cross platform screensaver that allows you to download YouTube videos by simply providing a valid YouTube URL in the Settings/Config window. Videos are downloaded and stored in a cache so be aware of disk usage. Add a few videos and then hit Preview or wait for your screensaver to start and watch the show!
+
+### Technical
+
+YouTube Grid is a JavaFX application written with Java 8. The app uses [youtube-dl](https://github.com/rg3/youtube-dl) to download and convert YouTube videos into usable *.mp4 files. To launch the screensaver, a "wrapper" or "shim" executable is used to launch the jar. On Windows, this is a C# application that looks for the jar and executes it. Mac OS and Linux launchers are still in development. All available launchers will be provided below under the development section.
 
 ## Download
 
@@ -27,6 +33,12 @@ Microsoft .NET Framework 4.7.1 (Offline Installer) -- [Download here](https://ww
 Visit the `Releases` section of this repo or [click here](https://github.com/dantheman213/youtubegrid-screensaver/releases) to download the latest installer available.
 
 NOTE: Currently the only installer available for this screensaver is available for Windows. Mac OS and Linux installers are actively being developed on.
+
+## Recommendations
+
+* Your computer should be modern and fast! Intel i5/i7 or equivalent (or greater) CPU
+
+* A SSD is highly recommended! The more tiles shown on your display(s) will affect file seek overheard. On a convential drive this may limit how many tiles you can have running simultaneously. 
 
 ## Build and Run
 

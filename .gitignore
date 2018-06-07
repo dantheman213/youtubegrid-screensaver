@@ -2,8 +2,11 @@
 [Tt]humbs.db
 
 .idea/
+*.iml
+
 build/
 out/
+classes/
 
 .gradle/
 gradle/

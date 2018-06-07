@@ -14,19 +14,29 @@ YouTube Grid is a cross platform screensaver that allows you to download YouTube
 
 You may already have these needed framework(s) installed. I recommend downloading the installer first and if there are any errors or problems then try downloading these installers and reopen the app!
 
-Java Runtime Environment -- [Download here](http://www.oracle.com/technetwork/java/javase/downloads/jre10-downloads-4417026.html)
+Java Runtime Environment 8 -- [Download here](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
 
 #### For Windows Users (additional)
+
+This should come with Windows 10. If you aren't using Windows 10 or the screensaver still won't configure or run and you have installed the Java Runtime Environment, then go ahead and proceed to this step.
 
 Microsoft .NET Framework 4.7.1 (Offline Installer) -- [Download here](https://www.microsoft.com/en-us/download/details.aspx?id=56116)
 
 ### Releases
 
-Visit the `Releases` section of this repo or [click here](https://github.com/dantheman213/youtubegrid-screensaver/releases) to download the latest installer available:
+Visit the `Releases` section of this repo or [click here](https://github.com/dantheman213/youtubegrid-screensaver/releases) to download the latest installer available.
 
 NOTE: Currently the only installer available for this screensaver is available for Windows. Mac OS and Linux installers are actively being developed on.
 
 ## Build and Run
+
+### Prerequisites
+
+Java Development Environment 8 -- [Download here](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+
+* Set `JAVA_HOME` in your environment variables. 
+
+Download and manage Gradle to build the project or use an IDE like [Intellij IDEA](https://www.jetbrains.com/idea/).
 
 ### Helper Projects
 
@@ -46,6 +56,6 @@ Coming soon! ... TBD!
 
 Coming soon! ... TBD!
 
-### Getting Started
+### Getting Started / Contributing
 
 This project is an active work in progress. More info TBD!

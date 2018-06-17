@@ -26,25 +26,22 @@ public class SettingsModel {
             System.out.println(String.format("Application Base Directory: %s", baseAppDir));
         }
 
-        if(StringUtils.isEmpty(videoCollectionDir)) {
-            videoCollectionDir = String.format("%s%scache%svideos", baseAppDir, File.separator, File.separator);
-            System.out.println(String.format("Video Cache Directory: %s", videoCollectionDir));
-        }
-
         if(StringUtils.isEmpty(binDir)) {
             binDir = String.format("%s%sbin", baseAppDir, File.separator);
             System.out.println(String.format("Ext Binary Directory: %s", binDir));
         }
 
-        if(StringUtils.isEmpty(youtubeDlBin)) {
+        if(StringUtils.isEmpty(youtubeDlBin) || StringUtils.isEmpty(videoCollectionDir)) {
             String osSuffix;
             switch(OsDetect.detect()) {
                 case WINDOWS_FAMILY:
                     osSuffix = ".exe";
+                    videoCollectionDir = String.format("%s\\YouTubeGrid\\cache\\videos", System.getenv("APPDATA"));
                     break;
                 case MACOS_FAMILY:
                 case LINUX_FAMILY:
                     osSuffix = "";
+                    videoCollectionDir = String.format("%s%scache%svideos", baseAppDir, File.separator, File.separator);
                     break;
                 case OTHER:
                 default:
@@ -53,6 +50,8 @@ public class SettingsModel {
 
             youtubeDlBin = String.format("%s%syoutube-dl%s", binDir, File.separator, osSuffix);
             System.out.println(String.format("youtube-dl bin: %s", youtubeDlBin));
+
+            System.out.println(String.format("Video Cache Directory: %s", videoCollectionDir));
         }
 
         // ... TBD change

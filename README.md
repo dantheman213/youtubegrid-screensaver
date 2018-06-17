@@ -24,9 +24,21 @@ Java Runtime Environment 8 -- [Download here](http://www.oracle.com/technetwork/
 
 #### For Windows Users (additional)
 
+##### .NET Framework
+
 This should come with Windows 10. If you aren't using Windows 10 or the screensaver still won't configure or run and you have installed the Java Runtime Environment, then go ahead and proceed to this step.
 
 Microsoft .NET Framework 4.7.1 (Offline Installer) -- [Download here](https://www.microsoft.com/en-us/download/details.aspx?id=56116)
+
+##### Visual C++ Framework 
+
+Included app `youtube-dl` requires this framework to download YouTube videos.
+
+Microsoft Visual C++ 2010 Redistributable Package (x86) -- [Download here](https://www.microsoft.com/en-US/download/details.aspx?id=5555)
+
+#### Afterwards
+
+Don't forget to restart your machine before attempting to use the screensaver!
 
 ### Releases
 

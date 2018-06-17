@@ -11,3 +11,6 @@ classes/
 .gradle/
 gradle/
 gradlew*
+
+
+release/Output

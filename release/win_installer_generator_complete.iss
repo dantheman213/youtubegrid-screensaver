@@ -27,9 +27,13 @@ OutputBaseFilename=youtubegrid-screensaver-installer
 Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=poweruser
+AlwaysRestart=yes
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
+
+[Registry]
+Root: HKLM; Subkey: "Software\YouTubeGrid"; ValueType: string; ValueName: "SCREEN_SAVER_PATH"; ValueData: "{app}"
 
 [Files]
 ; Requires GridLaunch helper app to be built and placed at this located.
@@ -47,9 +51,6 @@ Source: "..\build\libs\frameworks\dotnetinstaller.exe"; DestDir: "{app}"; Flags:
 Source: "..\build\libs\frameworks\vcredist_x86.exe"; DestDir: "{app}"; Flags: ignoreversion deleteafterinstall;
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-
-[Registry]
-Root: HKLM; Subkey: "Software\YouTubeGrid"; ValueType: string; ValueName: "SCREEN_SAVER_PATH"; ValueData: "{app}"
 
 [Run]
 Filename: "{app}\java8.exe"; Flags: runascurrentuser waituntilterminated;

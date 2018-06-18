@@ -16,7 +16,17 @@ YouTube Grid is a JavaFX application written with Java 8. The app uses [youtube-
 
 ## Download
 
+Visit the `Releases` section of this repo or [click here](https://github.com/dantheman213/youtubegrid-screensaver/releases) to download the latest installer available.
+
+There are two flavors available -- COMPLETE and LIGHT. If you're unsure which to download, please download the COMPLETE version. If you know what you're doing you may grab the LIGHT version for updates or to install any missing dependencies manually.
+
+Don't forget to restart your machine before attempting to use the screensaver!
+
+NOTE: Currently the only installer available for this screensaver is available for Windows. Mac OS and Linux installers are actively being developed on.
+
 ### Prerequisites
+
+This is only necessary if you downloaded LIGHT version and wanted to install any missing dependencies manually. If you downloaded the COMPLETE version all of this is included with your setup binary.
 
 You may already have these needed framework(s) installed. I recommend downloading the installer first and if there are any errors or problems then try downloading these installers and reopen the app!
 
@@ -35,16 +45,6 @@ Microsoft .NET Framework 4.7.1 (Offline Installer) -- [Download here](https://ww
 Included app `youtube-dl` requires this framework to download YouTube videos.
 
 Microsoft Visual C++ 2010 Redistributable Package (x86) -- [Download here](https://www.microsoft.com/en-US/download/details.aspx?id=5555)
-
-#### Afterwards
-
-Don't forget to restart your machine before attempting to use the screensaver!
-
-### Releases
-
-Visit the `Releases` section of this repo or [click here](https://github.com/dantheman213/youtubegrid-screensaver/releases) to download the latest installer available.
-
-NOTE: Currently the only installer available for this screensaver is available for Windows. Mac OS and Linux installers are actively being developed on.
 
 ## Recommendations
 

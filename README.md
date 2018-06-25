@@ -70,7 +70,7 @@ You will need to include the RG3 team's `youtube-dl` binary in your build. You c
 
 #### Windows
 
-In order to build for Windows you will need to build the helper project [GridLaunch](https://github.com/dantheman213/GridLaunch) for Windows platforms.
+In order to build for Windows you will need to build the helper project [GridLaunchWindows](https://github.com/dantheman213/GridLaunchWindows) for Windows platforms.
 
 #### Mac OS
 
